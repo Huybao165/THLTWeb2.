@@ -1,0 +1,62 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\BTTH\\WebApplication1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\migrations\\20250922014243_initialdatabasemigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\migrations\\20250922014243_initialdatabasemigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BooksController.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\BooksController.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\BooksController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T06:51:59.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20250922014243_InitialDatabaseMigration.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Migrations\\20250922014243_InitialDatabaseMigration.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Migrations\\20250922014243_InitialDatabaseMigration.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Migrations\\20250922014243_InitialDatabaseMigration.cs",
+              "RelativeToolTip": "WebApplication1\\Migrations\\20250922014243_InitialDatabaseMigration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T03:20:08.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
