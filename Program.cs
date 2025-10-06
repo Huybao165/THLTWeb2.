@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
-
+builder.Services.AddScoped<IPublisherRepository, SQLPublisherRepository>();
+builder.Services.AddScoped<IAuthorRepository, SQLAuthorRepository>();
 // Register the repository
 builder.Services.AddScoped<IBookRepository, SQLBookRepository>();
 
