@@ -65,6 +65,11 @@ namespace WebAPI_simple.Repositories
 
             return publisherNoIdDTO;
         }
+        public bool PublisherExists(string name)
+        {
+            return _context.Publishers
+                .Any(p => string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
+        }
 
         // Xóa Publisher theo Id
         public Publisher? DeletePublisherById(int id)

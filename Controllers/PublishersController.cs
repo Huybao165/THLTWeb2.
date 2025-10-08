@@ -15,7 +15,7 @@ namespace WebAPI_simple.Controllers
             this.publisherRepository = publisherRepository;
         }
 
-        // GET: api/publishers
+        // -------------------- GET: api/publishers --------------------
         [HttpGet]
         public IActionResult GetAllPublisher()
         {
@@ -23,7 +23,7 @@ namespace WebAPI_simple.Controllers
             return Ok(publishers);
         }
 
-        // GET: api/publishers/{id}
+        // -------------------- GET: api/publishers/{id} --------------------
         [HttpGet("{id}")]
         public IActionResult GetPublisherById(int id)
         {
@@ -35,22 +35,33 @@ namespace WebAPI_simple.Controllers
             return Ok(publisher);
         }
 
-        // POST: api/publishers
+        // -------------------- POST: api/publishers --------------------
         [HttpPost]
         public IActionResult AddPublisher([FromBody] AddPublisherRequestDTO addPublisherRequestDTO)
         {
+            // 1️⃣ Kiểm tra dữ liệu đầu vào
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            // 2️⃣ Kiểm tra trùng tên (theo yêu cầu bài tập 3)
+            var existingPublisher = publisherRepository
+                .GetAllPublishers()
+                .FirstOrDefault(p =>
+                    string.Equals(p.Name, addPublisherRequestDTO.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingPublisher != null)
+            {
+                return BadRequest($"Publisher name '{addPublisherRequestDTO.Name}' already exists.");
+            }
+
+            // 3️⃣ Thêm mới
             var publisher = publisherRepository.AddPublisher(addPublisherRequestDTO);
-            // Vì AddPublisher trả về AddPublisherRequestDTO (không có Id),
-            // nên chỉ trả về Ok thay vì CreatedAtAction
             return Ok(publisher);
         }
 
-        // PUT: api/publishers/{id}
+        // -------------------- PUT: api/publishers/{id} --------------------
         [HttpPut("{id}")]
         public IActionResult UpdatePublisherById(int id, [FromBody] PublisherNoIdDTO publisherNoIdDTO)
         {
@@ -62,7 +73,7 @@ namespace WebAPI_simple.Controllers
             return Ok(publisher);
         }
 
-        // DELETE: api/publishers/{id}
+        // -------------------- DELETE: api/publishers/{id} --------------------
         [HttpDelete("{id}")]
         public IActionResult DeletePublisherById(int id)
         {
