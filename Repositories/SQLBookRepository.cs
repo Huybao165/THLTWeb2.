@@ -2,7 +2,6 @@
 using WebAPI_simple.Data;
 using WebAPI_simple.Models.Domain;
 using WebAPI_simple.Models.DTO;
-using System.Linq;
 
 namespace WebAPI_simple.Repositories
 {
@@ -15,61 +14,107 @@ namespace WebAPI_simple.Repositories
             _dbContext = dbContext;
         }
 
-        public List<BookWithAuthorAndPublisherDTO> GetAllBooks()
+        // ✅ GetAllBooks – có hỗ trợ Filter + Sort
+        public List<BookWithAuthorAndPublisherDTO> GetAllBooks(
+            string? filterOn = null,
+            string? filterQuery = null,
+            string? sortBy = null,
+            bool isAscending = true)
         {
+            // Lấy danh sách sách và ánh xạ sang DTO
             var allBooks = _dbContext.Books
                 .Include(b => b.Publisher)
                 .Include(b => b.Book_Authors).ThenInclude(ba => ba.Author)
-                .Select(Books => new BookWithAuthorAndPublisherDTO()
+                .Select(b => new BookWithAuthorAndPublisherDTO()
                 {
-                    Id = Books.Id,
-                    Title = Books.Title,
-                    Description = Books.Description,
-                    IsRead = Books.IsRead,
-                    DateRead = Books.IsRead ? Books.DateRead : null,
-                    Rate = Books.IsRead ? Books.Rate : null,
-                    Genre = Books.Genre,
-                    CoverUrl = Books.CoverUrl,
-                    // Đã sửa lỗi: Sử dụng biểu thức điều kiện thay vì ?. để khắc phục lỗi "expression tree lambda"
-                    PublisherName = Books.Publisher == null ? null : Books.Publisher.Name,
-                    AuthorNames = Books.Book_Authors.Select(n => n.Author.FullName).ToList()
-                }).ToList();
-            return allBooks;
-        }
+                    Id = b.Id,
+                    Title = b.Title,
+                    Description = b.Description,
+                    IsRead = b.IsRead,
+                    DateRead = b.IsRead ? b.DateRead : null,
+                    Rate = b.IsRead ? b.Rate : null,
+                    Genre = b.Genre,
+                    CoverUrl = b.CoverUrl,
+                    PublisherName = b.Publisher == null ? null : b.Publisher.Name,
+                    AuthorNames = b.Book_Authors.Select(a => a.Author.FullName).ToList()
+                })
+                .AsQueryable();
 
-        public BookWithAuthorAndPublisherDTO? GetBookById(int id)
-        {
-            var bookWithDomain = _dbContext.Books
-                .Include(b => b.Book_Authors).ThenInclude(ba => ba.Author)
-                .Include(b => b.Publisher)
-                .Where(n => n.Id == id).FirstOrDefault();
-
-            if (bookWithDomain == null)
+            // 🧩 FILTERING
+            if (!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
             {
-                return null;
+                if (filterOn.Equals("title", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = allBooks.Where(x => x.Title.Contains(filterQuery));
+                }
+                else if (filterOn.Equals("genre", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = allBooks.Where(x => x.Genre.Contains(filterQuery));
+                }
+                else if (filterOn.Equals("publisher", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = allBooks.Where(x => x.PublisherName.Contains(filterQuery));
+                }
             }
 
-            // Map Domain Model to DTO
-            var bookWithIdDTO = new BookWithAuthorAndPublisherDTO()
+            // 🧭 SORTING
+            if (!string.IsNullOrWhiteSpace(sortBy))
             {
-                Id = bookWithDomain.Id,
-                Title = bookWithDomain.Title,
-                Description = bookWithDomain.Description,
-                IsRead = bookWithDomain.IsRead,
-                DateRead = bookWithDomain.IsRead ? bookWithDomain.DateRead : null,
-                Rate = bookWithDomain.IsRead ? bookWithDomain.Rate : null,
-                Genre = bookWithDomain.Genre,
-                CoverUrl = bookWithDomain.CoverUrl,
-                PublisherName = bookWithDomain.Publisher?.Name,
-                AuthorNames = bookWithDomain.Book_Authors.Select(n => n.Author.FullName).ToList()
-            };
+                if (sortBy.Equals("title", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = isAscending
+                        ? allBooks.OrderBy(x => x.Title)
+                        : allBooks.OrderByDescending(x => x.Title);
+                }
+                else if (sortBy.Equals("genre", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = isAscending
+                        ? allBooks.OrderBy(x => x.Genre)
+                        : allBooks.OrderByDescending(x => x.Genre);
+                }
+                else if (sortBy.Equals("publisher", StringComparison.OrdinalIgnoreCase))
+                {
+                    allBooks = isAscending
+                        ? allBooks.OrderBy(x => x.PublisherName)
+                        : allBooks.OrderByDescending(x => x.PublisherName);
+                }
+            }
 
-            return bookWithIdDTO;
+            // ✅ Trả kết quả ra danh sách
+            return allBooks.ToList();
         }
 
+        // ✅ Lấy 1 sách theo Id
+        public BookWithAuthorAndPublisherDTO GetBookById(int id)
+        {
+            var bookDomain = _dbContext.Books
+                .Include(b => b.Book_Authors).ThenInclude(ba => ba.Author)
+                .Include(b => b.Publisher)
+                .FirstOrDefault(b => b.Id == id);
+
+            if (bookDomain == null) return null!;
+
+            var bookDTO = new BookWithAuthorAndPublisherDTO()
+            {
+                Id = bookDomain.Id,
+                Title = bookDomain.Title,
+                Description = bookDomain.Description,
+                IsRead = bookDomain.IsRead,
+                DateRead = bookDomain.IsRead ? bookDomain.DateRead : null,
+                Rate = bookDomain.IsRead ? bookDomain.Rate : null,
+                Genre = bookDomain.Genre,
+                CoverUrl = bookDomain.CoverUrl,
+                PublisherName = bookDomain.Publisher?.Name,
+                AuthorNames = bookDomain.Book_Authors.Select(a => a.Author.FullName).ToList()
+            };
+
+            return bookDTO;
+        }
+
+        // ✅ Thêm mới 1 sách
         public AddBookRequestDTO AddBook(AddBookRequestDTO addBookRequestDTO)
         {
-            var bookDomainModel = new Book
+            var book = new Book
             {
                 Title = addBookRequestDTO.Title,
                 Description = addBookRequestDTO.Description,
@@ -82,72 +127,73 @@ namespace WebAPI_simple.Repositories
                 PublisherID = addBookRequestDTO.PublisherID
             };
 
-            _dbContext.Books.Add(bookDomainModel);
+            _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
 
-            foreach (var id in addBookRequestDTO.AuthorIds)
+            foreach (var authorId in addBookRequestDTO.AuthorIds)
             {
-                var _book_author = new Book_Author()
+                var bookAuthor = new Book_Author()
                 {
-                    BookId = bookDomainModel.Id,
-                    AuthorId = id
+                    BookId = book.Id,
+                    AuthorId = authorId
                 };
-                _dbContext.Books_Authors.Add(_book_author);
+                _dbContext.Books_Authors.Add(bookAuthor);
                 _dbContext.SaveChanges();
             }
+
             return addBookRequestDTO;
         }
 
+        // ✅ Cập nhật 1 sách
         public AddBookRequestDTO? UpdateBookById(int id, AddBookRequestDTO bookDTO)
         {
-            var bookDomain = _dbContext.Books.FirstOrDefault(n => n.Id == id);
+            var book = _dbContext.Books.FirstOrDefault(b => b.Id == id);
+            if (book == null) return null;
 
-            if (bookDomain == null)
-            {
-                return null;
-            }
+            book.Title = bookDTO.Title;
+            book.Description = bookDTO.Description;
+            book.IsRead = bookDTO.IsRead;
+            book.DateRead = bookDTO.DateRead;
+            book.Rate = bookDTO.Rate;
+            book.Genre = bookDTO.Genre;
+            book.CoverUrl = bookDTO.CoverUrl;
+            book.DateAdded = bookDTO.DateAdded;
+            book.PublisherID = bookDTO.PublisherID;
 
-            bookDomain.Title = bookDTO.Title;
-            bookDomain.Description = bookDTO.Description;
-            bookDomain.IsRead = bookDTO.IsRead;
-            bookDomain.DateRead = bookDTO.DateRead;
-            bookDomain.Rate = bookDTO.Rate;
-            bookDomain.Genre = bookDTO.Genre;
-            bookDomain.CoverUrl = bookDTO.CoverUrl;
-            bookDomain.DateAdded = bookDTO.DateAdded;
-            bookDomain.PublisherID = bookDTO.PublisherID;
             _dbContext.SaveChanges();
 
-            var authorDomain = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
-            if (authorDomain.Any())
+            // Cập nhật danh sách tác giả
+            var oldAuthors = _dbContext.Books_Authors.Where(a => a.BookId == id).ToList();
+            if (oldAuthors.Any())
             {
-                _dbContext.Books_Authors.RemoveRange(authorDomain);
+                _dbContext.Books_Authors.RemoveRange(oldAuthors);
                 _dbContext.SaveChanges();
             }
 
             foreach (var authorId in bookDTO.AuthorIds)
             {
-                var _book_author = new Book_Author()
+                var bookAuthor = new Book_Author()
                 {
                     BookId = id,
                     AuthorId = authorId
                 };
-                _dbContext.Books_Authors.Add(_book_author);
+                _dbContext.Books_Authors.Add(bookAuthor);
                 _dbContext.SaveChanges();
             }
 
             return bookDTO;
         }
 
+        // ✅ Xóa 1 sách
         public Book? DeleteBookById(int id)
         {
-            var bookDomain = _dbContext.Books.FirstOrDefault(n => n.Id == id);
-            if (bookDomain != null)
+            var book = _dbContext.Books.FirstOrDefault(b => b.Id == id);
+            if (book != null)
             {
-                _dbContext.Books.Remove(bookDomain);
+                _dbContext.Books.Remove(book);
                 _dbContext.SaveChanges();
             }
-            return bookDomain;
+            return book;
         }
     }
 }

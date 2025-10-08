@@ -1,75 +1,93 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WebAPI_simple.CustomActionFilter;
-using WebAPI_simple.Data;
-using WebAPI_simple.Models.Domain;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI_simple.Models.DTO;
 using WebAPI_simple.Repositories;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebAPI_simple.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
         private readonly IBookRepository _bookRepository;
 
-        public BooksController(AppDbContext dbContext, IBookRepository bookRepository)
+        // ✅ Inject Repository vào Controller
+        public BooksController(IBookRepository bookRepository)
         {
-            _dbContext = dbContext;
             _bookRepository = bookRepository;
         }
 
+        // ✅ GetAllBooks có hỗ trợ Filter + Sort
         [HttpGet("get-all-books")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(
+            [FromQuery] string? filterOn,
+            [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy,
+            [FromQuery] bool isAscending = true)
         {
-            var allBooks = _bookRepository.GetAllBooks();
+            // 🔹 Sử dụng Repository Pattern để lấy dữ liệu
+            var allBooks = _bookRepository.GetAllBooks(filterOn, filterQuery, sortBy, isAscending);
+
+            // 🔹 Trả về dữ liệu cho client
             return Ok(allBooks);
         }
 
+        // ✅ Get book by Id
         [HttpGet("get-book-by-id/{id}")]
         public IActionResult GetBookById([FromRoute] int id)
         {
-            var bookWithIdDTO = _bookRepository.GetBookById(id);
-            return Ok(bookWithIdDTO);
-        }
+            var book = _bookRepository.GetBookById(id);
 
-        // ✅ Validate ở Model + Controller
-        [HttpPost("add-book")]
-        [ValidateModel]
-        public IActionResult AddBook([FromBody] AddBookRequestDTO addBookRequestDTO)
-        {
-            // 1️⃣ Validate logic ở Controller
-            if (!ValidateAddBook(addBookRequestDTO))
+            if (book == null)
             {
-                return BadRequest(ModelState);
+                return NotFound("❌ Book not found!");
             }
 
-            // 2️⃣ Nếu hợp lệ → thêm vào DB
-            var bookAdd = _bookRepository.AddBook(addBookRequestDTO);
-            return Ok(bookAdd);
+            return Ok(book);
         }
 
+        // ✅ Add new book
+        [HttpPost("add-book")]
+        public IActionResult AddBook([FromBody] AddBookRequestDTO addBookRequestDTO)
+        {
+            if (addBookRequestDTO == null)
+            {
+                return BadRequest("❌ Invalid book data");
+            }
+
+            var newBook = _bookRepository.AddBook(addBookRequestDTO);
+            return Ok(newBook);
+        }
+
+        // ✅ Update book by Id
         [HttpPut("update-book-by-id/{id}")]
-        public IActionResult UpdateBookById(int id, [FromBody] AddBookRequestDTO bookDTO)
+        public IActionResult UpdateBookById([FromRoute] int id, [FromBody] AddBookRequestDTO bookDTO)
         {
-            var bookUpdate = _bookRepository.UpdateBookById(id, bookDTO);
-            return Ok(bookUpdate);
+            var updatedBook = _bookRepository.UpdateBookById(id, bookDTO);
+
+            if (updatedBook == null)
+            {
+                return NotFound("❌ Book not found to update!");
+            }
+
+            return Ok(updatedBook);
         }
 
+        // ✅ Delete book by Id
         [HttpDelete("delete-book-by-id/{id}")]
-        public IActionResult DeleteBookById(int id)
+        public IActionResult DeleteBookById([FromRoute] int id)
         {
-            var deleteBook = _bookRepository.DeleteBookById(id);
-            return Ok(deleteBook);
-        }
+            var deletedBook = _bookRepository.DeleteBookById(id);
 
-        // 🧩 Hàm Validate ở Controller
-        #region Private methods
-        private bool ValidateAddBook(AddBookRequestDTO addBookRequestDTO)
+            if (deletedBook == null)
+            {
+                return NotFound("❌ Book not found to delete!");
+            }
+
+            return Ok($"✅ Book '{deletedBook.Title}' has been deleted successfully.");
+        }
+// 🧩 Hàm Validate ở Controller
+#region Private methods
+private bool ValidateAddBook(AddBookRequestDTO addBookRequestDTO)
         {
             if (addBookRequestDTO == null)
             {
