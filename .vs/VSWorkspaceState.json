@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebApplication1",
+    "\\WebApplication1\\CustomActionFilter",
+    "\\WebApplication1\\Data",
+    "\\WebApplication1\\Migrations",
+    "\\WebApplication1\\Models",
+    "\\WebApplication1\\Models\\Domain",
+    "\\WebApplication1\\Models\\DTO",
+    "\\WebApplication1\\Properties",
+    "\\WebApplication1\\Repositories"
   ],
-  "SelectedNode": "\\WebApplication1.sln",
+  "SelectedNode": "\\WebApplication1\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }
