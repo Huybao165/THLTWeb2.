@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "D:\\BTTH\\WebApplication1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|d:\\btth\\webapplication1\\webapplication1\\controllers\\registerrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88ED8D8B-432A-419D-8673-C7AB4F872027}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\registerrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,20 +42,85 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BooksController.cs",
-              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\BooksController.cs",
-              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\BooksController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "WebApplication1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T16:29:22.123Z",
+              "WhenOpened": "2025-10-16T06:00:37.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthorsController.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\AuthorsController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthorsController.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\AuthorsController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\AuthorsController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T05:52:39.927Z",
               "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\appsettings.json",
+              "RelativeDocumentMoniker": "WebApplication1\\appsettings.json",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\appsettings.json*",
+              "RelativeToolTip": "WebApplication1\\appsettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-15T05:11:55.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "WebApplication1\\appsettings.Development.json",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\appsettings.Development.json",
+              "RelativeToolTip": "WebApplication1\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-15T05:11:53.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RegisterRequestDTO.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\RegisterRequestDTO.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\RegisterRequestDTO.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\RegisterRequestDTO.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\RegisterRequestDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-15T05:11:38.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BooksController.cs",
+              "DocumentMoniker": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\BooksController.cs",
+              "ToolTip": "D:\\BTTH\\WebApplication1\\WebApplication1\\Controllers\\BooksController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\BooksController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T16:29:22.123Z",
+              "EditorCaption": ""
             }
           ]
         }
